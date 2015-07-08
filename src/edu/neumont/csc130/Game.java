@@ -1,19 +1,33 @@
 package edu.neumont.csc130;
 
+import java.util.Scanner;
+
 public class Game {
 
 	public static Database data = new Database();
 	private int row1 = 3, row2 = 5, row3 = 7;
-
+	public Scanner scan = new Scanner(System.in);
 	public static void main(String[] args){
 		new Game().mainMenu();
 	}
 	
 	
 	public void mainMenu(){
+		System.out.println("Welcome to NIM!\n\n");
 		boolean runtime = true;
 		while(runtime){
-			//copy menu text here
+			System.out.println("Please choose a Game Type by number\n"
+					+ "(1) Player vs Player\n"
+					+ "(2) Player vs Computer\n"
+					+ "(3) Computer vs Computer");
+			int playChoice = -1;
+			try{
+				playChoice = Integer.parseInt(scan.nextLine());
+				
+				this.game(playChoice);
+			} catch(Exception e){
+				System.out.println("Please input a valid menu number");
+			}
 		}
 	}
 	
