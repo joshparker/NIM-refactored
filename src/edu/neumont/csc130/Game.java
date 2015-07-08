@@ -17,7 +17,6 @@ public class Game {
 				}else{
 					playerTurn();
 				}
-				p1Turn = !p1Turn;
 				break;
 			case 1:
 				if(p1Turn){
@@ -25,7 +24,6 @@ public class Game {
 				}else{
 					computerTurn();
 				}
-				p1Turn = !p1Turn;
 				break;
 
 			case 2:
@@ -34,13 +32,13 @@ public class Game {
 				}else{
 					computerTurn();
 				}
-				p1Turn = !p1Turn;
 				break;
 
 			default:
 				System.out.println("Bad gametype number");
 				gameNotWon = false;
 			}
+			p1Turn = !p1Turn;
 
 		}
 
