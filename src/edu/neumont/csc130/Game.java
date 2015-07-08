@@ -10,9 +10,10 @@ public class Game {
 	public Scanner scan = new Scanner(System.in);
 	ArrayList<String> p1moves = new ArrayList<String>();
 	ArrayList<String> p2moves = new ArrayList<String>();
-//	public static void main(String[] args){
-//		new Game().mainMenu();
-//	}
+	
+	public static void main(String[] args){
+		new Game().mainMenu();
+	}
 	
 	
 	public void mainMenu(){
