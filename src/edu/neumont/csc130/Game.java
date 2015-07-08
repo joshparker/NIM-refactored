@@ -5,6 +5,20 @@ public class Game {
 	public static Database data = new Database();
 	private int row1 = 3, row2 = 5, row3 = 7;
 
+	public static void main(String[] args){
+		new Game().mainMenu();
+	}
+	
+	
+	public void mainMenu(){
+		boolean runtime = true;
+		while(runtime){
+			//copy menu text here
+		}
+	}
+	
+	
+	
 	//Merge the PVP,PVC, and CVC classes into one here
 	public void game (int GameType){
 
