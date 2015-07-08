@@ -1,4 +1,4 @@
-package edu.neumont.csc130;
+//package edu.neumont.csc130;
 
 import java.util.Scanner;
 
@@ -7,9 +7,10 @@ public class Game {
 	public static Database data = new Database();
 	private int row1 = 3, row2 = 5, row3 = 7;
 	public Scanner scan = new Scanner(System.in);
-	public static void main(String[] args){
-		new Game().mainMenu();
-	}
+	
+//	public static void main(String[] args){
+//		new Game().mainMenu();
+//	}
 	
 	
 	public void mainMenu(){
@@ -44,8 +45,10 @@ public class Game {
 			switch(GameType){
 			case 0:
 				if(p1Turn){
+					System.out.println("Player 1's Turn");
 					playerTurn();
 				}else{
+					System.out.println("Player 2's Turn");
 					playerTurn();
 				}
 				break;
@@ -101,13 +104,93 @@ public class Game {
 	}
 
 	public void computerTurn(){
-
-		//Computers Turn
 	}
 
 	public void playerTurn(){
-
-		//Non-computers turn
-
+		System.out.println("Current Rows:"
+				+ "\n(1): "+row1
+				+ "\n(2): "+row2
+				+ "\n(3): "+row3);
+		
+		System.out.print("\n\nPlease select a row: ");
+		boolean rowCheck = true;
+		while(rowCheck){
+			String rowChoice = scan.nextLine();
+			if(!(rowChoice.equals("1") || rowChoice.equals("2") || rowChoice.equals("3"))){
+				System.out.println("Please select a valid row: ");
+			}else{
+				switch(Integer.parseInt(rowChoice)){
+				case 1:
+					if(row1 == 0){
+						System.out.println("That row is empty. Please select another row.");
+					}else{
+						rowCheck = false;
+						System.out.println("How many do you want to remove?");
+						boolean removing_stuff = true;
+						
+						while(removing_stuff){
+							try{
+								int amount = Integer.parseInt(scan.nextLine());
+								if(amount <= 0 || amount > row1){
+									throw new Exception();
+								}
+								row1 -= amount;
+								removing_stuff = false;
+							}catch(Exception e){
+								System.out.println("Please choose a valid number.");
+							}
+						}
+					}
+					break;
+				case 2:
+					if(row2 == 0){
+						System.out.println("That row is empty. Please select another row.");
+					}else{
+						rowCheck = false;
+						System.out.println("How many do you want to remove?");
+						boolean removing_stuff = true;
+						
+						while(removing_stuff){
+							try{
+								int amount = Integer.parseInt(scan.nextLine());
+								if(amount <= 0 || amount > row2){
+									throw new Exception();
+								}
+								row2 -= amount;
+								removing_stuff = false;
+							}catch(Exception e){
+								System.out.println("Please choose a valid number.");
+							}
+						}
+					}
+					break;
+				case 3:
+					if(row3 == 0){
+						System.out.println("That row is empty. Please select another row.");
+					}else{
+						rowCheck = false;
+						System.out.println("How many do you want to remove?");
+						boolean removing_stuff = true;
+						
+						while(removing_stuff){
+							try{
+								int amount = Integer.parseInt(scan.nextLine());
+								if(amount <= 0 || amount > row3){
+									throw new Exception();
+								}
+								row3 -= amount;
+								removing_stuff = false;
+								
+							}catch(Exception e){
+								System.out.println("Please choose a valid number.");
+							}
+						}
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
 	}
 }
