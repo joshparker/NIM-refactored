@@ -1,5 +1,6 @@
 //package edu.neumont.csc130;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -7,7 +8,8 @@ public class Game {
 	public static Database data = new Database();
 	private int row1 = 3, row2 = 5, row3 = 7;
 	public Scanner scan = new Scanner(System.in);
-	
+	ArrayList<String> p1moves = new ArrayList<String>();
+	ArrayList<String> p2moves = new ArrayList<String>();
 //	public static void main(String[] args){
 //		new Game().mainMenu();
 //	}
@@ -17,26 +19,59 @@ public class Game {
 		System.out.println("Welcome to NIM!\n\n");
 		boolean runtime = true;
 		while(runtime){
+			reset();
+			
+			
 			System.out.println("Please choose a Game Type by number\n"
 					+ "(1) Player vs Player\n"
 					+ "(2) Player vs Computer\n"
-					+ "(3) Computer vs Computer");
+					+ "(3) Computer vs Computer\n"
+					+ "(4) Exit");
 			int playChoice = -1;
 			try{
 				playChoice = Integer.parseInt(scan.nextLine());
 				
-				this.game(playChoice);
+				if(playChoice == 3){
+					System.out.println("How many times should the computer play itself?");
+					try{
+						int playtime = Integer.parseInt(scan.nextLine());
+						
+						if(playtime < 0){
+							throw new Exception();
+						}
+						
+						for(int i = 0; i < playtime; i++){
+							reset();
+							this.game(playChoice-1);
+							System.out.println("Game "+i+" complete");
+						}
+					}catch(Exception e){
+						System.out.println("Please choose a valid number;");
+					}
+				}else{
+					reset();
+					this.game(playChoice-1);
+				}
 			} catch(Exception e){
 				System.out.println("Please input a valid menu number");
 			}
 		}
 	}
 	
+	public void reset(){
+		row1 = 3;
+		row2 = 5;
+		row3 = 7;
+		p1moves.clear();
+		p2moves.clear();
+	}
+	
 	
 	
 	//Merge the PVP,PVC, and CVC classes into one here
 	public void game (int GameType){
-
+		
+		
 
 		boolean p1Turn = true;
 		boolean gameNotWon = true;
@@ -47,24 +82,35 @@ public class Game {
 				if(p1Turn){
 					System.out.println("Player 1's Turn");
 					playerTurn();
+					p1moves.add(row1+"-"+row2+"-"+row3);
 				}else{
 					System.out.println("Player 2's Turn");
 					playerTurn();
+					p2moves.add(row1+"-"+row2+"-"+row3);
 				}
 				break;
 			case 1:
 				if(p1Turn){
 					playerTurn();
+					p1moves.add(row1+"-"+row2+"-"+row3);
 				}else{
 					computerTurn();
+					p2moves.add(row1+"-"+row2+"-"+row3);
 				}
 				break;
 			case 2:
 				if(p1Turn){
 					computerTurn();
+					p1moves.add(row1+"-"+row2+"-"+row3);
 				}else{
 					computerTurn();
+					p2moves.add(row1+"-"+row2+"-"+row3);
 				}
+				break;
+			case 3:
+				System.out.println("Goodbye!");
+				gameNotWon = false;
+				System.exit(1);
 				break;
 			default:
 				System.out.println("Bad gametype number");
@@ -77,18 +123,57 @@ public class Game {
 				case 0:
 					if(p1Turn){
 						System.out.println("Player 2 wins!");
+						for(int i = 1; i < p2moves.size()+1; i++){
+							data.updateValues(p2moves.get(i-1), (double)i/((double)p2moves.size()+1));
+						}
+						for(int i = 1; i < p1moves.size()+1; i++){
+							data.updateValues(p1moves.get(i-1), (double)-i/((double)p1moves.size()+1));
+						}
 					}else{
 						System.out.println("Player 1 wins!");
+						for(int i = 1; i < p1moves.size()+1; i++){
+							data.updateValues(p1moves.get(i-1), (double)i/((double)p1moves.size()+1));
+						}
+						for(int i = 1; i < p2moves.size()+1; i++){
+							data.updateValues(p2moves.get(i-1), (double)-i/((double)p2moves.size()+1));
+						}
 					}
 					break;
 				case 1:
 					if(p1Turn){
 						System.out.println("The Computer wins!");
+						for(int i = 1; i < p2moves.size()+1; i++){
+							data.updateValues(p2moves.get(i-1), (double)i/((double)p2moves.size()+1));
+						}
+						for(int i = 1; i < p1moves.size()+1; i++){
+							data.updateValues(p1moves.get(i-1), (double)-i/((double)p1moves.size()+1));
+						}
 					}else{
-						System.out.println("Player wins!");
+						System.out.println("The Player wins!");
+						for(int i = 1; i < p1moves.size()+1; i++){
+							data.updateValues(p1moves.get(i-1), (double)i/((double)p1moves.size()+1));
+						}
+						for(int i = 1; i < p2moves.size()+1; i++){
+							data.updateValues(p2moves.get(i-1), (double)-i/((double)p2moves.size()+1));
+						}
 					}
 					break;
 				case 2:
+					if(p1Turn){
+						for(int i = 1; i < p2moves.size()+1; i++){
+							data.updateValues(p2moves.get(i-1), (double)i/((double)p2moves.size()+1));
+						}
+						for(int i = 1; i < p1moves.size()+1; i++){
+							data.updateValues(p1moves.get(i-1), (double)-i/((double)p1moves.size()+1));
+						}
+					}else{
+						for(int i = 1; i < p1moves.size()+1; i++){
+							data.updateValues(p1moves.get(i-1), (double)i/((double)p1moves.size()+1));
+						}
+						for(int i = 1; i < p2moves.size()+1; i++){
+							data.updateValues(p2moves.get(i-1), (double)-i/((double)p2moves.size()+1));
+						}
+					}
 					//show game statistics for CvC?
 					break;
 				default:
@@ -104,6 +189,10 @@ public class Game {
 	}
 
 	public void computerTurn(){
+		String[] rows = (data.getNextMove(row1+"-"+row2+"-"+row3)).split("-");
+		row1 = Integer.parseInt(rows[0]);
+		row2 = Integer.parseInt(rows[1]);
+		row3 = Integer.parseInt(rows[2]);
 	}
 
 	public void playerTurn(){
