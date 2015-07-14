@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Random;
 
 
 public class Database {
-	public Hashtable<String, Integer> appearances = new Hashtable<String, Integer>();
+	private Hashtable<String, Integer> appearances = new Hashtable<String, Integer>();
 	private Hashtable<String, ArrayList<String>> outcomes = new Hashtable<String, ArrayList<String>>();
 	private Hashtable<String, Double> values = new Hashtable<String, Double>();
 
@@ -57,7 +58,11 @@ public class Database {
 	
 	public String getRandMove(String current){
 		String move = "0-0-0";
-		move = this.getPossibleMoves(current).get(new java.util.Random().nextInt(this.getPossibleMoves(current).size()));
+		ArrayList<String> possibleMoves = this.getPossibleMoves(current);
+		int numPossibleMoves = possibleMoves.size();
+		Random rand = new java.util.Random();
+
+		move = possibleMoves.get(rand.nextInt(numPossibleMoves));
 		return move;
 	}
 	
@@ -72,9 +77,8 @@ public class Database {
 		}
 
 		double newVal = ((value)+(values.get(rows)*appearances.get(rows)))/((appearances.get(rows))+1);
-		//		System.err.println(newVal+", "+appearances.get(rows));
-		values.put(rows, (Double)newVal);
-		appearances.put(rows, appearances.get(rows)+1);
+
+		values.put(rows, newVal);
 	}
 
 	public double getValue(String rows){
