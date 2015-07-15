@@ -7,12 +7,21 @@ public class Database {
 	private Hashtable<String, Integer> appearances = new Hashtable<String, Integer>();
 	private Hashtable<String, ArrayList<String>> outcomes = new Hashtable<String, ArrayList<String>>();
 	private Hashtable<String, Double> values = new Hashtable<String, Double>();
+	
+	private Hashtable<NimRows, Integer> 			row_apperances = 	new Hashtable<NimRows, Integer>();
+	private Hashtable<NimRows, ArrayList<NimRows>> 	row_outcomes = 		new Hashtable<NimRows, ArrayList<NimRows>>();
+	private Hashtable<NimRows, Double> 				row_values = 		new Hashtable<NimRows, Double>();
 
 	public Database(){
 		values.put("0-0-0", -1.0);
 		values.put("1-0-0", 1.0);
 		values.put("0-1-0", 1.0);
 		values.put("0-0-1", 1.0);
+
+		row_values.put(new NimRows(0,0,0), -1.0);
+		row_values.put(new NimRows(1,0,0), 1.0);
+		row_values.put(new NimRows(0,1,0), 1.0);
+		row_values.put(new NimRows(0,0,1), 1.0);
 	}
 
 	public String getNextMove(String current){

@@ -24,8 +24,6 @@ public class Game {
 	//Merge the PVP,PVC, and CVC classes into one here
 	public void game (int GameType){
 		
-		
-
 		boolean player1Turn = true;
 		boolean gameNotWon = true;
 		while(gameNotWon){

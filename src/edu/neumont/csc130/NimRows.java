@@ -13,6 +13,18 @@ public class NimRows {
 		
 	}
 	
+	public int getRow1() {
+		return row1;
+	}
+
+	public int getRow2() {
+		return row2;
+	}
+
+	public int getRow3() {
+		return row3;
+	}
+
 	public String returnAllRowsInString(){
 		
 		return row1+"-"+row2+"-"+row3;
