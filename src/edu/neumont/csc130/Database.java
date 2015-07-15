@@ -96,6 +96,7 @@ public class Database {
 		return values.get(rows);
 	}
 
+	
 	private void pathGenerate(String current){
 		int[] bort = new int[3];
 		String[] stuff = current.split("-");
@@ -104,30 +105,31 @@ public class Database {
 		}
 
 		ArrayList<String> outcomez = new ArrayList<String>();
-
-		String stuffs = null;
+		NimRows nimRows;
+		
 		for(int a = 0; a < 3; a++){
 			for(int b = 0; b < bort[a]; b++){
 				switch(a){
 				case 0:
-					stuffs = b+"-"+bort[1]+"-"+bort[2];
-					outcomez.add(stuffs);
-					appearances.put(stuffs, 1);
-					values.put(stuffs, 0.0);
+					nimRows = new NimRows(b,bort[1],bort[2]);
+					outcomez.add(nimRows.returnAllRowsInString());
+					appearances.put(nimRows.returnAllRowsInString(), 1);
+					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				case 1:
-					stuffs = bort[0]+"-"+b+"-"+bort[2];
-					outcomez.add(stuffs);
-					appearances.put(stuffs, 1);
-					values.put(stuffs, 0.0);
+					nimRows = new NimRows(bort[0],b,bort[2]);
+					outcomez.add(nimRows.returnAllRowsInString());
+					appearances.put(nimRows.returnAllRowsInString(), 1);
+					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				case 2:
-					stuffs = bort[0]+"-"+bort[1]+"-"+b;
-					outcomez.add(stuffs);
-					appearances.put(stuffs, 1);
-					values.put(stuffs, 0.0);
+					nimRows = new NimRows(bort[0],bort[1],b);
+					outcomez.add(nimRows.returnAllRowsInString());
+					appearances.put(nimRows.returnAllRowsInString(), 1);
+					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				}
+		
 			}
 		}
 

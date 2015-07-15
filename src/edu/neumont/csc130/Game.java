@@ -8,15 +8,15 @@ public class Game {
 	public static Database data = new Database();
 	private int row1 = 3, row2 = 5, row3 = 7;
 	public Scanner scan = new Scanner(System.in);
-	ArrayList<String> p1moves = new ArrayList<String>();
-	ArrayList<String> p2moves = new ArrayList<String>();
+	ArrayList<String> player1Moves = new ArrayList<String>();
+	ArrayList<String> player2Moves = new ArrayList<String>();
 	
 	public void reset(){
 		row1 = 3;
 		row2 = 5;
 		row3 = 7;
-		p1moves.clear();
-		p2moves.clear();
+		player1Moves.clear();
+		player2Moves.clear();
 	}
 	
 	
@@ -26,38 +26,38 @@ public class Game {
 		
 		
 
-		boolean p1Turn = true;
+		boolean player1Turn = true;
 		boolean gameNotWon = true;
 		while(gameNotWon){
 
 			switch(GameType){
 			case 0:
-				if(p1Turn){
+				if(player1Turn){
 					System.out.println("Player 1's Turn");
 					playerTurn();
-					p1moves.add(row1+"-"+row2+"-"+row3);
+					player1Moves.add(row1+"-"+row2+"-"+row3);
 				}else{
 					System.out.println("Player 2's Turn");
 					playerTurn();
-					p2moves.add(row1+"-"+row2+"-"+row3);
+					player2Moves.add(row1+"-"+row2+"-"+row3);
 				}
 				break;
 			case 1:
-				if(p1Turn){
+				if(player1Turn){
 					playerTurn();
-					p1moves.add(row1+"-"+row2+"-"+row3);
+					player1Moves.add(row1+"-"+row2+"-"+row3);
 				}else{
 					computerTurn();
-					p2moves.add(row1+"-"+row2+"-"+row3);
+					player2Moves.add(row1+"-"+row2+"-"+row3);
 				}
 				break;
 			case 2:
-				if(p1Turn){
+				if(player1Turn){
 					computerTurn();
-					p1moves.add(row1+"-"+row2+"-"+row3);
+					player1Moves.add(row1+"-"+row2+"-"+row3);
 				}else{
 					computerTurn();
-					p2moves.add(row1+"-"+row2+"-"+row3);
+					player2Moves.add(row1+"-"+row2+"-"+row3);
 				}
 				break;
 			case 3:
@@ -74,57 +74,57 @@ public class Game {
 				gameNotWon = false;
 				switch(GameType){
 				case 0:
-					if(p1Turn){
+					if(player1Turn){
 						System.out.println("Player 2 wins!");
-						for(int i = 1; i < p2moves.size()+1; i++){
-							data.updateValues(p2moves.get(i-1), (double)i/((double)p2moves.size()+1));
+						for(int i = 1; i < player2Moves.size()+1; i++){
+							data.updateValues(player2Moves.get(i-1), (double)i/((double)player2Moves.size()+1));
 						}
-						for(int i = 1; i < p1moves.size()+1; i++){
-							data.updateValues(p1moves.get(i-1), (double)-i/((double)p1moves.size()+1));
+						for(int i = 1; i < player1Moves.size()+1; i++){
+							data.updateValues(player1Moves.get(i-1), (double)-i/((double)player1Moves.size()+1));
 						}
 					}else{
 						System.out.println("Player 1 wins!");
-						for(int i = 1; i < p1moves.size()+1; i++){
-							data.updateValues(p1moves.get(i-1), (double)i/((double)p1moves.size()+1));
+						for(int i = 1; i < player1Moves.size()+1; i++){
+							data.updateValues(player1Moves.get(i-1), (double)i/((double)player1Moves.size()+1));
 						}
-						for(int i = 1; i < p2moves.size()+1; i++){
-							data.updateValues(p2moves.get(i-1), (double)-i/((double)p2moves.size()+1));
+						for(int i = 1; i < player2Moves.size()+1; i++){
+							data.updateValues(player2Moves.get(i-1), (double)-i/((double)player2Moves.size()+1));
 						}
 					}
 					break;
 				case 1:
-					if(p1Turn){
+					if(player1Turn){
 						System.out.println("The Computer wins!");
-						for(int i = 1; i < p2moves.size()+1; i++){
-							data.updateValues(p2moves.get(i-1), (double)i/((double)p2moves.size()+1));
+						for(int i = 1; i < player2Moves.size()+1; i++){
+							data.updateValues(player2Moves.get(i-1), (double)i/((double)player2Moves.size()+1));
 						}
-						for(int i = 1; i < p1moves.size()+1; i++){
-							data.updateValues(p1moves.get(i-1), (double)-i/((double)p1moves.size()+1));
+						for(int i = 1; i < player1Moves.size()+1; i++){
+							data.updateValues(player1Moves.get(i-1), (double)-i/((double)player1Moves.size()+1));
 						}
 					}else{
 						System.out.println("The Player wins!");
-						for(int i = 1; i < p1moves.size()+1; i++){
-							data.updateValues(p1moves.get(i-1), (double)i/((double)p1moves.size()+1));
+						for(int i = 1; i < player1Moves.size()+1; i++){
+							data.updateValues(player1Moves.get(i-1), (double)i/((double)player1Moves.size()+1));
 						}
-						for(int i = 1; i < p2moves.size()+1; i++){
-							data.updateValues(p2moves.get(i-1), (double)-i/((double)p2moves.size()+1));
+						for(int i = 1; i < player2Moves.size()+1; i++){
+							data.updateValues(player2Moves.get(i-1), (double)-i/((double)player2Moves.size()+1));
 						}
 					}
 					break;
 				case 2:
-					if(p1Turn){
-						for(int i = 1; i < p2moves.size()+1; i++){
-							data.updateValues(p2moves.get(i-1), (double)i/((double)p2moves.size()+1));
+					if(player1Turn){
+						for(int i = 1; i < player2Moves.size()+1; i++){
+							data.updateValues(player2Moves.get(i-1), (double)i/((double)player2Moves.size()+1));
 						}
-						for(int i = 1; i < p1moves.size()+1; i++){
-							data.updateValues(p1moves.get(i-1), (double)-i/((double)p1moves.size()+1));
+						for(int i = 1; i < player1Moves.size()+1; i++){
+							data.updateValues(player1Moves.get(i-1), (double)-i/((double)player1Moves.size()+1));
 						}
 					}else{
-						for(int i = 1; i < p1moves.size()+1; i++){
-							data.updateValues(p1moves.get(i-1), (double)i/((double)p1moves.size()+1));
+						for(int i = 1; i < player1Moves.size()+1; i++){
+							data.updateValues(player1Moves.get(i-1), (double)i/((double)player1Moves.size()+1));
 						}
-						for(int i = 1; i < p2moves.size()+1; i++){
-							data.updateValues(p2moves.get(i-1), (double)-i/((double)p2moves.size()+1));
+						for(int i = 1; i < player2Moves.size()+1; i++){
+							data.updateValues(player2Moves.get(i-1), (double)-i/((double)player2Moves.size()+1));
 						}
 					}
 					//show game statistics for CvC?
@@ -135,7 +135,7 @@ public class Game {
 			}
 
 
-			p1Turn = !p1Turn;
+			player1Turn = !player1Turn;
 
 		}
 
@@ -168,16 +168,16 @@ public class Game {
 					}else{
 						rowCheck = false;
 						System.out.println("How many do you want to remove?");
-						boolean removing_stuff = true;
+						boolean removing_sticks = true;
 						
-						while(removing_stuff){
+						while(removing_sticks){
 							try{
 								int amount = Integer.parseInt(scan.nextLine());
 								if(amount <= 0 || amount > row1){
 									throw new Exception();
 								}
 								row1 -= amount;
-								removing_stuff = false;
+								removing_sticks = false;
 							}catch(Exception e){
 								System.out.println("Please choose a valid number.");
 							}
@@ -190,16 +190,16 @@ public class Game {
 					}else{
 						rowCheck = false;
 						System.out.println("How many do you want to remove?");
-						boolean removing_stuff = true;
+						boolean removing_sticks = true;
 						
-						while(removing_stuff){
+						while(removing_sticks){
 							try{
 								int amount = Integer.parseInt(scan.nextLine());
 								if(amount <= 0 || amount > row2){
 									throw new Exception();
 								}
 								row2 -= amount;
-								removing_stuff = false;
+								removing_sticks = false;
 							}catch(Exception e){
 								System.out.println("Please choose a valid number.");
 							}
@@ -212,16 +212,16 @@ public class Game {
 					}else{
 						rowCheck = false;
 						System.out.println("How many do you want to remove?");
-						boolean removing_stuff = true;
+						boolean removing_sticks = true;
 						
-						while(removing_stuff){
+						while(removing_sticks){
 							try{
 								int amount = Integer.parseInt(scan.nextLine());
 								if(amount <= 0 || amount > row3){
 									throw new Exception();
 								}
 								row3 -= amount;
-								removing_stuff = false;
+								removing_sticks = false;
 								
 							}catch(Exception e){
 								System.out.println("Please choose a valid number.");
