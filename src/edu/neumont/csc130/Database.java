@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Database {
 	private Hashtable<String, Integer> appearances = new Hashtable<String, Integer>();
-	private Hashtable<String, ArrayList<String>> outcomes = new Hashtable<String, ArrayList<String>>();
+	private Hashtable<String, ArrayList<String>> outcomeTable = new Hashtable<String, ArrayList<String>>();
 	private Hashtable<String, Double> values = new Hashtable<String, Double>();
 	
 	private Hashtable<NimRows, Integer> 			row_apperances = 	new Hashtable<NimRows, Integer>();
@@ -107,33 +107,33 @@ public class Database {
 
 	
 	private void pathGenerate(String current){
-		int[] bort = new int[3];
-		String[] stuff = current.split("-");
+		int[] rows = new int[3];
+		String[] stringRows = current.split("-");
 		for(int i = 0; i < 3; i++){
-			bort[i] = Integer.parseInt(stuff[i]);
+			rows[i] = Integer.parseInt(stringRows[i]);
 		}
 
-		ArrayList<String> outcomez = new ArrayList<String>();
+		ArrayList<String> outcome = new ArrayList<String>();
 		NimRows nimRows;
 		
 		for(int a = 0; a < 3; a++){
-			for(int b = 0; b < bort[a]; b++){
+			for(int b = 0; b < rows[a]; b++){
 				switch(a){
 				case 0:
-					nimRows = new NimRows(b,bort[1],bort[2]);
-					outcomez.add(nimRows.returnAllRowsInString());
+					nimRows = new NimRows(b,rows[1],rows[2]);
+					outcome.add(nimRows.returnAllRowsInString());
 					appearances.put(nimRows.returnAllRowsInString(), 1);
 					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				case 1:
-					nimRows = new NimRows(bort[0],b,bort[2]);
-					outcomez.add(nimRows.returnAllRowsInString());
+					nimRows = new NimRows(rows[0],b,rows[2]);
+					outcome.add(nimRows.returnAllRowsInString());
 					appearances.put(nimRows.returnAllRowsInString(), 1);
 					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				case 2:
-					nimRows = new NimRows(bort[0],bort[1],b);
-					outcomez.add(nimRows.returnAllRowsInString());
+					nimRows = new NimRows(rows[0],rows[1],b);
+					outcome.add(nimRows.returnAllRowsInString());
 					appearances.put(nimRows.returnAllRowsInString(), 1);
 					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
@@ -142,16 +142,16 @@ public class Database {
 			}
 		}
 
-		outcomes.put(current, outcomez);
+		outcomeTable.put(current, outcome);
 
 	}
 
 	public ArrayList<String> getPossibleMoves(String current){
 
-		if(outcomes.get(current) == null){
+		if(outcomeTable.get(current) == null){
 			this.pathGenerate(current);
 		}
 
-		return outcomes.get(current);
+		return outcomeTable.get(current);
 	}
 }

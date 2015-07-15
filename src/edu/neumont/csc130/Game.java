@@ -156,9 +156,7 @@ public class Game {
 		boolean rowCheck = true;
 		while(rowCheck){
 			String rowChoice = scan.nextLine();
-			if(!(rowChoice.equals("1") || rowChoice.equals("2") || rowChoice.equals("3"))){
-				System.out.println("Please select a valid row: ");
-			}else{
+			if((rowChoice.equals("1") || rowChoice.equals("2") || rowChoice.equals("3"))){
 				switch(Integer.parseInt(rowChoice)){
 				case 1:
 					if(row1 == 0){
@@ -230,6 +228,9 @@ public class Game {
 				default:
 					break;
 				}
+			}
+			else{
+				System.out.println("Please select a valid row: ");
 			}
 		}
 	}
