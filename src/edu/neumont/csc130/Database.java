@@ -25,20 +25,13 @@ public class Database {
 	}
 
 	public String getNextMove(String current){
-		//take the current state of the board and return the highest rated next move from the Array/Hashtable
 
 		String best_move = "0-0-0";
 		values.remove("0-0-0");
 		values.put("0-0-0", -1.0);
-		//making DAMN sure 0-0-0 has a bad value
 		boolean runagain = true;
 		while(runagain){
-//			System.out.println("Current "+current);
-//			System.out.println("Possible moves: "+this.getPossibleMoves(current));
-			
-			
 			for(String s:(ArrayList<String>)this.getPossibleMoves(current)){
-//				System.out.println("S :: "+s+" :: "+this.getValue(s));
 				if(this.getValue(best_move) < this.getValue(s)){
 					best_move = s;
 				}else if(this.getValue(best_move) == this.getValue(s)){
@@ -48,8 +41,6 @@ public class Database {
 					}
 				}
 			}
-			
-			
 
 			if(!(current.equals("1-0-0") || current.equals("0-1-0") || current.equals("0-0-1"))){
 				if(!best_move.equals("0-0-0")){
