@@ -7,7 +7,7 @@ public class Database {
 	private Hashtable<String, Integer> appearances = new Hashtable<String, Integer>();
 	private Hashtable<String, ArrayList<String>> outcomeTable = new Hashtable<String, ArrayList<String>>();
 	private Hashtable<String, Double> values = new Hashtable<String, Double>();
-	
+
 	private Hashtable<NimRows, Integer> 			row_apperances = 	new Hashtable<NimRows, Integer>();
 	private Hashtable<NimRows, ArrayList<NimRows>> 	row_outcomes = 		new Hashtable<NimRows, ArrayList<NimRows>>();
 	private Hashtable<NimRows, Double> 				row_values = 		new Hashtable<NimRows, Double>();
@@ -55,7 +55,7 @@ public class Database {
 		return best_move;
 	}
 
-	
+
 	public String getRandMove(String current){
 		String move = "0-0-0";
 		ArrayList<String> possibleMoves = this.getPossibleMoves(current);
@@ -65,7 +65,7 @@ public class Database {
 		move = possibleMoves.get(rand.nextInt(numPossibleMoves));
 		return move;
 	}
-	
+
 	public void updateValues(String rows, double value){
 
 		if(!appearances.containsKey(rows)){
@@ -96,7 +96,7 @@ public class Database {
 		return values.get(rows);
 	}
 
-	
+
 	private void pathGenerate(String current){
 		int[] rows = new int[3];
 		String[] stringRows = current.split("-");
@@ -105,31 +105,30 @@ public class Database {
 		}
 
 		ArrayList<String> outcome = new ArrayList<String>();
-		NimRows nimRows;
-		
+		NimRows nimRows = null;
+
 		for(int a = 0; a < 3; a++){
 			for(int b = 0; b < rows[a]; b++){
 				switch(a){
 				case 0:
 					nimRows = new NimRows(b,rows[1],rows[2]);
-					outcome.add(nimRows.returnAllRowsInString());
-					appearances.put(nimRows.returnAllRowsInString(), 1);
-					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				case 1:
 					nimRows = new NimRows(rows[0],b,rows[2]);
-					outcome.add(nimRows.returnAllRowsInString());
-					appearances.put(nimRows.returnAllRowsInString(), 1);
-					values.put(nimRows.returnAllRowsInString(), 0.0);
 					break;
 				case 2:
 					nimRows = new NimRows(rows[0],rows[1],b);
-					outcome.add(nimRows.returnAllRowsInString());
-					appearances.put(nimRows.returnAllRowsInString(), 1);
-					values.put(nimRows.returnAllRowsInString(), 0.0);
+					break;
+				default:
+					nimRows = new NimRows(-1,-1,-1);
+					System.err.println("FATAL ERROR: PATH_GENERATE BROKEN.");
+					System.exit(0);
 					break;
 				}
-		
+				outcome.add(nimRows.returnAllRowsInString());
+				appearances.put(nimRows.returnAllRowsInString(), 1);
+				values.put(nimRows.returnAllRowsInString(), 0.0);
+
 			}
 		}
 
