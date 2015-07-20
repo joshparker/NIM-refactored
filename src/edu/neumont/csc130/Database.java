@@ -42,12 +42,12 @@ public class Database {
 				}
 			}
 
-			if(!(current.equals("1-0-0") || current.equals("0-1-0") || current.equals("0-0-1"))){
+			if((current.equals("1-0-0") || current.equals("0-1-0") || current.equals("0-0-1"))){
+				runagain = false;
+			}else{
 				if(!best_move.equals("0-0-0")){
 					runagain = false;
 				}
-			}else{
-				runagain = false;
 			}
 		}
 
